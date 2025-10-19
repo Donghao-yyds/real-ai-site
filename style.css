@@ -1,0 +1,355 @@
+/* 全局样式 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Noto Sans SC', sans-serif;
+    background-color: #0a192f;
+    color: #f5f5f5;
+    line-height: 1.6;
+}
+
+a {
+    color: #4db5ff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #9fcbff;
+}
+
+/* 导航栏 */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 40px;
+    background: rgba(10, 25, 47, 0.85);
+    backdrop-filter: blur(10px);
+    z-index: 100;
+}
+
+.logo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #4db5ff;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 24px;
+}
+
+.nav-links a {
+    font-weight: 600;
+    padding-bottom: 4px;
+}
+
+.nav-links a.active {
+    border-bottom: 2px solid #4db5ff;
+    color: #4db5ff;
+}
+
+/* 顶部横幅 */
+.hero {
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: 80px;
+    background: url('images/hero-bg.png') center/cover no-repeat;
+    position: relative;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.55);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    padding: 0 20px;
+}
+
+.hero h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 1.25rem;
+    margin-bottom: 30px;
+    color: #d6e2f1;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 12px 28px;
+    background-color: #4db5ff;
+    color: #0a192f;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #399fff;
+}
+
+/* 通用版块样式 */
+.section {
+    padding: 80px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    /* 为各板块添加垂直间距，避免内容过于紧凑 */
+    position: relative;
+}
+
+/* 使非第一个 section 在顶部留出额外空间，以免与前一个 section 内容重叠 */
+.section + .section {
+    margin-top: 40px;
+}
+
+.section h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.2rem;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+/* 关于我们卡片 */
+.about .cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: center;
+}
+
+.about .card {
+    background: rgba(4, 30, 66, 0.85);
+    border-radius: 10px;
+    padding: 30px;
+    flex: 1 1 300px;
+    max-width: 500px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.about .card:hover {
+    transform: translateY(-5px);
+}
+
+.about .card i {
+    font-size: 2rem;
+    color: #4db5ff;
+    margin-bottom: 15px;
+}
+
+.about .card h3 {
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.about .card p {
+    font-size: 1rem;
+    color: #c7d0e0;
+}
+
+/* AI 工具栅格 */
+.ai-tools .tool-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+}
+
+.ai-tools .tool {
+    background: rgba(4, 30, 66, 0.85);
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    transition: transform 0.3s ease;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.ai-tools .tool:hover {
+    transform: translateY(-5px);
+}
+
+.ai-tools .tool img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    margin-bottom: 20px;
+}
+
+.ai-tools .tool h3 {
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.ai-tools .tool p {
+    font-size: 0.95rem;
+    color: #c7d0e0;
+}
+
+/* 市场研究板块 */
+.market .market-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    align-items: center;
+}
+
+.market .text {
+    flex: 1 1 400px;
+}
+
+.market .text h3 {
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.market .text p {
+    margin-bottom: 24px;
+    font-size: 1rem;
+    color: #c7d0e0;
+}
+
+.market .image {
+    flex: 1 1 400px;
+    text-align: center;
+}
+
+.market .image img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* 服务模块 */
+.services .service-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+}
+
+.services .service {
+    background: rgba(4, 30, 66, 0.85);
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.services .service:hover {
+    transform: translateY(-5px);
+}
+
+.services .service i {
+    font-size: 2rem;
+    color: #4db5ff;
+    margin-bottom: 15px;
+}
+
+.services .service h3 {
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.services .service p {
+    font-size: 0.95rem;
+    color: #c7d0e0;
+}
+
+/* 核心价值 */
+.value .value-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+}
+
+.value .value-item {
+    background: rgba(4, 30, 66, 0.85);
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.value .value-item:hover {
+    transform: translateY(-5px);
+}
+
+.value .value-item i {
+    font-size: 2rem;
+    color: #4db5ff;
+    margin-bottom: 15px;
+}
+
+.value .value-item h3 {
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.value .value-item p {
+    font-size: 0.95rem;
+    color: #c7d0e0;
+}
+
+/* 页脚样式 */
+.footer {
+    background-color: #041E42;
+    padding: 30px 20px;
+    text-align: center;
+    color: #7a8fa6;
+    font-size: 0.9rem;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 10px 20px;
+    }
+    .nav-links {
+        gap: 12px;
+        font-size: 0.9rem;
+    }
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    .hero p {
+        font-size: 1rem;
+    }
+    .section {
+        padding: 60px 20px;
+    }
+    .section h2 {
+        font-size: 1.8rem;
+    }
+}
