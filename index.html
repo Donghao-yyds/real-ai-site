@@ -3,142 +3,671 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Real AI - AI赋能房地产投资决策</title>
-    <!-- 引入谷歌字体用于中文和英文字体 -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;600;700&family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
-    <!-- Font Awesome 图标库 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-t5K6Mmq7J0oHkq1NxI2z68wrzae0FhtqSLW0fNPUb+3bWuU0YI8KKD+2smnQCKypKMmEDirYqC1XYF3R3uG3Ug==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- 网站样式表 -->
-    <link rel="stylesheet" href="style.css">
+    <title>REAL AI - 数据重塑不动产投资</title>
+    <!-- 引入 Google 字体 (商务风格) -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- 引入 FontAwesome 图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- 全局变量与重置 --- */
+        :root {
+            --primary-color: #0F204B; /* 商务深蓝 (TalentBridge风格) */
+            --accent-color: #00D2FF;  /* 科技青 (AI 数据感) */
+            --text-dark: #333333;
+            --text-light: #666666;
+            --bg-light: #F4F7F6;
+            --white: #ffffff;
+            --max-width: 1200px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            background-color: var(--white);
+        }
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+        
+        /* 通用工具类 */
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .section-padding { padding: 80px 0; }
+        .bg-gray { background-color: var(--bg-light); }
+        
+        .section-title {
+            font-size: 36px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--accent-color);
+            margin-top: 10px;
+        }
+        .section-subtitle {
+            font-size: 16px;
+            color: var(--text-light);
+            margin-bottom: 50px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--primary-color);
+            color: var(--white);
+            font-weight: 500;
+            border-radius: 2px; /* 商务硬朗风格 */
+            border: 1px solid var(--primary-color);
+        }
+        .btn:hover {
+            background: transparent;
+            color: var(--primary-color);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--white);
+        }
+        .btn-outline:hover {
+            background: var(--white);
+            color: var(--primary-color);
+        }
+
+        /* --- 导航栏 --- */
+        header {
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            height: 80px;
+            display: flex;
+            align-items: center;
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--primary-color);
+            letter-spacing: 1px;
+        }
+        .logo span { color: var(--accent-color); }
+        
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a {
+            font-weight: 500;
+            color: var(--text-dark);
+            font-size: 15px;
+        }
+        .nav-links a:hover { color: var(--primary-color); }
+
+        /* --- Hero 区域 --- */
+        .hero {
+            height: 90vh;
+            background: linear-gradient(rgba(15, 32, 75, 0.85), rgba(15, 32, 75, 0.7)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80'); /* 上海陆家嘴背景图 */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            color: var(--white);
+            margin-top: 80px;
+        }
+        .hero-content { max-width: 800px; }
+        .hero h1 {
+            font-size: 56px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        .hero p {
+            font-size: 20px;
+            opacity: 0.9;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+        
+        /* --- 数据悬浮栏 --- */
+        .stats-bar {
+            background: var(--white);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-top: -50px;
+            position: relative;
+            z-index: 10;
+            border-radius: 4px;
+            padding: 40px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            text-align: center;
+        }
+        .stat-item h3 {
+            font-size: 36px;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+        .stat-item p { color: var(--text-light); font-size: 14px; margin-top: 5px; }
+
+        /* --- 创始人板块 --- */
+        .founder-section { display: flex; align-items: center; gap: 60px; }
+        .founder-img {
+            flex: 1;
+            height: 500px;
+            background: url('https://images.unsplash.com/photo-1556157382-97eda2d62296?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80') center/cover; /* 商务男士背景 */
+            position: relative;
+            border-radius: 4px;
+        }
+        .founder-img::before {
+            content: '';
+            position: absolute;
+            top: 20px; left: -20px;
+            width: 100%; height: 100%;
+            border: 4px solid var(--primary-color);
+            z-index: -1;
+        }
+        .founder-info { flex: 1; }
+        .founder-title { font-size: 14px; color: var(--accent-color); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+        .founder-name { font-size: 40px; color: var(--primary-color); margin-bottom: 20px; font-weight: 700; }
+        .tags span {
+            display: inline-block;
+            background: #Eef2f5;
+            padding: 5px 12px;
+            font-size: 12px;
+            color: var(--text-dark);
+            margin-right: 10px;
+            margin-bottom: 10px;
+            border-radius: 2px;
+        }
+        .founder-desc { margin-top: 25px; color: var(--text-light); text-align: justify; }
+        .quote {
+            border-left: 4px solid var(--accent-color);
+            padding-left: 20px;
+            margin: 20px 0;
+            font-style: italic;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        /* --- AI 工具板块 --- */
+        .ai-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+        .ai-card {
+            background: var(--white);
+            padding: 40px 30px;
+            border-top: 3px solid transparent;
+            transition: 0.3s;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+        }
+        .ai-card:hover {
+            border-top: 3px solid var(--accent-color);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        .ai-icon {
+            font-size: 40px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        .ai-card h4 { font-size: 20px; margin-bottom: 15px; color: var(--text-dark); }
+        .ai-card p { font-size: 14px; color: var(--text-light); margin-bottom: 15px; }
+        .ai-tag { color: var(--accent-color); font-size: 12px; font-weight: 700; }
+
+        /* --- 市场版图 (Tabs 风格) --- */
+        .market-container { display: flex; gap: 50px; }
+        .market-tabs { flex: 1; }
+        .tab-btn {
+            width: 100%;
+            text-align: left;
+            padding: 20px;
+            background: var(--white);
+            border: 1px solid #eee;
+            cursor: pointer;
+            margin-bottom: 15px;
+            transition: 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .tab-btn.active, .tab-btn:hover {
+            background: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
+        }
+        .tab-btn h4 { font-size: 18px; margin-bottom: 5px; }
+        .tab-btn p { font-size: 13px; opacity: 0.8; font-weight: 300; }
+        .market-visual {
+            flex: 1.5;
+            background: #0F204B;
+            border-radius: 4px;
+            padding: 40px;
+            color: var(--white);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .market-detail-box h3 { font-size: 24px; margin-bottom: 20px; color: var(--accent-color); }
+        .zone-list li {
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 10px;
+        }
+        .zone-list strong { color: var(--white); margin-right: 10px; }
+        .zone-list span { color: #ccc; font-size: 14px; }
+
+        /* --- 服务体系 --- */
+        .service-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 60px;
+            gap: 50px;
+        }
+        .service-row:nth-child(even) { flex-direction: row-reverse; }
+        .service-img {
+            flex: 1;
+            height: 300px;
+            background: #ddd;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .service-img img { width: 100%; height: 100%; object-fit: cover; }
+        .service-text { flex: 1; }
+        .service-text h3 { font-size: 26px; margin-bottom: 15px; color: var(--primary-color); }
+        .service-list { margin-top: 20px; }
+        .service-list li { margin-bottom: 10px; position: relative; padding-left: 20px; color: var(--text-light); }
+        .service-list li::before {
+            content: '•';
+            color: var(--accent-color);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* --- 价值 (计数器) --- */
+        .value-section {
+            background: var(--primary-color);
+            color: var(--white);
+            text-align: center;
+        }
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 50px;
+        }
+        .value-item {
+            padding: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .value-item h2 { font-size: 48px; color: var(--accent-color); margin-bottom: 10px; }
+        .value-item h4 { font-size: 20px; margin-bottom: 15px; }
+        .value-item p { font-size: 14px; opacity: 0.8; }
+
+        /* --- 底部 --- */
+        footer {
+            background: #0a1633;
+            color: #fff;
+            padding: 60px 0 20px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        .footer-col h4 { color: var(--accent-color); margin-bottom: 20px; }
+        .footer-col p { font-size: 14px; color: #ccc; margin-bottom: 20px; line-height: 1.8; }
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links a { color: #ccc; font-size: 14px; }
+        .footer-links a:hover { color: var(--white); }
+        
+        .copyright {
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+            font-size: 13px;
+            color: #666;
+        }
+
+        /* --- 响应式 --- */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 36px; }
+            .stats-bar { grid-template-columns: 1fr 1fr; gap: 20px; }
+            .founder-section, .market-container, .service-row { flex-direction: column; }
+            .service-row:nth-child(even) { flex-direction: column; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .value-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; } /* 简单隐藏，实际开发需做汉堡菜单 */
+        }
+    </style>
 </head>
 <body>
-    <!-- 顶部横幅和导航 -->
-    <header class="hero">
-        <nav class="navbar">
-            <div class="logo">Real AI</div>
+
+    <!-- 导航栏 -->
+    <header>
+        <div class="container nav-container">
+            <div class="logo">REAL <span>AI</span></div>
             <ul class="nav-links">
-                <li><a href="#about">关于我们</a></li>
+                <li><a href="#">首页</a></li>
+                <li><a href="#founder">创始人</a></li>
                 <li><a href="#ai-tools">AI工具</a></li>
-                <li><a href="#market">市场研究</a></li>
-                <li><a href="#services">服务模块</a></li>
-                <li><a href="#value">核心价值</a></li>
+                <li><a href="#market">市场版图</a></li>
+                <li><a href="#services">核心服务</a></li>
             </ul>
-        </nav>
-        <div class="hero-content">
-            <h1>AI赋能房地产投资</h1>
-            <p>用智能算法洞悉市场脉搏，助力智慧投资决策</p>
-            <a href="#about" class="cta-button">了解更多</a>
+            <a href="#contact" class="btn">预约测评</a>
         </div>
     </header>
-    <main>
-        <!-- 关于我们 -->
-        <section id="about" class="section about">
-            <h2>核心身份与专业标签</h2>
-            <div class="cards">
-                <div class="card">
-                    <i class="fa fa-id-badge"></i>
-                    <h3>明确身份</h3>
-                    <p>开发公司总经理、资深房地产投资顾问、中国首批国际房地产投资师，CRAM，深耕上海及长三角区域房地产市场 25年+，参与投资的项目超过300亿。</p>
-                </div>
-                <div class="card">
-                    <i class="fa fa-star"></i>
-                    <h3>差异化标签</h3>
-                    <p>国内首批将 AI 工具深度融入房地产投资决策的实践者，擅长通过技术手段打破传统投资分析的信息差与效率瓶颈。</p>
+
+    <!-- Hero 区域 -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>REAL AI<br>数据重塑不动产投资</h1>
+            <p>25年深耕积淀 × AI智能决策，打破长三角房地产投资的信息壁垒与效率瓶颈。</p>
+            <a href="#services" class="btn">了解我们的服务</a>
+            <a href="#founder" class="btn btn-outline" style="margin-left: 15px;">关于创始人</a>
+        </div>
+    </section>
+
+    <!-- 数据悬浮栏 -->
+    <div class="container">
+        <div class="stats-bar">
+            <div class="stat-item">
+                <h3>300亿+</h3>
+                <p>参与投资项目规模</p>
+            </div>
+            <div class="stat-item">
+                <h3>25年+</h3>
+                <p>深耕长三角市场</p>
+            </div>
+            <div class="stat-item">
+                <h3>16城</h3>
+                <p>实时全域数据覆盖</p>
+            </div>
+            <div class="stat-item">
+                <h3>20%</h3>
+                <p>平均收益优于市场</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 创始人板块 -->
+    <section id="founder" class="section-padding">
+        <div class="container">
+            <div class="founder-section">
+                <div class="founder-img"></div>
+                <div class="founder-info">
+                    <div class="founder-title">About Founder</div>
+                    <div class="founder-name">董豪 Dong Hao</div>
+                    <div class="tags">
+                        <span>开发公司总经理</span>
+                        <span>资深房地产投资顾问</span>
+                        <span>中国首批国际房地产投资师 (CRAM)</span>
+                    </div>
+                    <div class="quote">
+                        “国内首批将 AI 工具深度融入房地产投资决策的实践者。”
+                    </div>
+                    <p class="founder-desc">
+                        深耕上海及长三角区域 25 年 +，从传统开发的实战经验到 AI 时代的量化分析，致力于通过技术手段消除信息差，解决投资效率瓶颈。参与投资的项目超过 300 亿，擅长用数据理性对抗市场盲目，为客户提供“预算-风险-收益”精准匹配的投资方案。
+                    </p>
                 </div>
             </div>
-        </section>
-        <!-- AI工具场景 -->
-        <section id="ai-tools" class="section ai-tools">
-            <h2>AI工具应用场景</h2>
-            <div class="tool-grid">
-                <div class="tool">
-                    <img src="images/data-analysis.png" alt="数据处理">
-                    <h3>数据处理与分析</h3>
-                    <p>运用 AI 工具自动抓取上海及长三角 16 城的实时房价、租金回报率、供需关系等核心数据，生成动态趋势报表，替代传统人工统计。</p>
+        </div>
+    </section>
+
+    <!-- AI 工具板块 -->
+    <section id="ai-tools" class="section-padding bg-gray">
+        <div class="container">
+            <h2 class="section-title">AI 应用场景</h2>
+            <p class="section-subtitle">量化落地，打破传统信息差</p>
+            
+            <div class="ai-grid">
+                <!-- Card 1 -->
+                <div class="ai-card">
+                    <div class="ai-icon"><i class="fa-solid fa-chart-line"></i></div>
+                    <h4>数据处理与分析</h4>
+                    <p>抓取上海及长三角16城实时房价、租金回报、供需关系。生成动态趋势报表，替代人工统计。</p>
+                    <span class="ai-tag">全景透视</span>
                 </div>
-                <div class="tool">
-                    <img src="images/invest-analysis.png" alt="投资测算">
-                    <h3>投资测算与风险预警</h3>
-                    <p>基于 AI 算法搭建个性化投资模型，输入预算、周期、风险承受度，自动输出不同业态的收益测算（如 IRR、静态回收期），并预警政策变动与市场波动。</p>
+                <!-- Card 2 -->
+                <div class="ai-card">
+                    <div class="ai-icon"><i class="fa-solid fa-calculator"></i></div>
+                    <h4>投资测算与预警</h4>
+                    <p>基于AI算法搭建个性化模型，自动输出IRR、静态回收期，并预警市场波动与政策风险。</p>
+                    <span class="ai-tag">风险风控</span>
                 </div>
-                <div class="tool">
-                    <img src="images/policy-signal.png" alt="政策信号">
-                    <h3>政策与市场信号捕捉</h3>
-                    <p>通过 AI 舆情分析工具实时监测住建、税务等部门发布的政策，自动拆解不同区域、业态的影响，第一时间生成解读报告。</p>
+                <!-- Card 3 -->
+                <div class="ai-card">
+                    <div class="ai-icon"><i class="fa-solid fa-satellite-dish"></i></div>
+                    <h4>政策信号捕捉</h4>
+                    <p>实时监测各地住建、税务部门发布的新规，自动拆解政策对不同区域、业态的深层影响。</p>
+                    <span class="ai-tag">舆情雷达</span>
                 </div>
-                <div class="tool">
-                    <img src="images/match-recommend.png" alt="项目匹配">
-                    <h3>项目匹配与推荐</h3>
-                    <p>基于客户需求标签利用 AI 推荐算法从数据库中筛选高匹配度项目，并附详细优劣势分析。</p>
-                </div>
-            </div>
-        </section>
-        <!-- 市场研究 -->
-        <section id="market" class="section market">
-            <h2>上海及长三角市场深耕</h2>
-            <div class="market-content">
-                <div class="text">
-                    <h3>上海市场</h3>
-                    <p>覆盖上海 16 个行政区，按核心城区（如静安、徐汇）、近郊改善区（如闵行、嘉定）、远郊潜力区（如临港新片区）划分细分板块，精准掌握各板块的规划利好、学区资源、二手交易活跃度等。</p>
-                    <h3>长三角市场</h3>
-                    <p>聚焦长三角 16 个核心城市（如杭州、南京、苏州、宁波等），按上海都市圈卫星城、区域中心城市、新兴潜力城市分类，分析各城市与上海的产业联动、交通通勤（如高铁 1 小时圈）对房地产投资的影响。</p>
-                </div>
-                <div class="image">
-                    <img src="images/region-map.png" alt="区域地图">
+                <!-- Card 4 -->
+                <div class="ai-card">
+                    <div class="ai-icon"><i class="fa-solid fa-map-location-dot"></i></div>
+                    <h4>项目精准匹配</h4>
+                    <p>基于客户需求标签（如“徐汇500万刚需”），算法筛选高匹配项目，附带详细优劣势分析。</p>
+                    <span class="ai-tag">智能推荐</span>
                 </div>
             </div>
-        </section>
-        <!-- 服务模块 -->
-        <section id="services" class="section services">
-            <h2>核心服务模块</h2>
-            <div class="service-grid">
-                <div class="service">
-                    <i class="fa fa-chart-line"></i>
-                    <h3>投资分析服务</h3>
-                    <p>针对高净值人群、刚需投资者等不同客群，提供“预算-风险-收益”匹配的投资方案；为房企、投资机构提供长三角区域拿地可行性分析，包括地块周边规划、竞品项目销售数据、开发成本测算等，输出可视化分析报告。</p>
+        </div>
+    </section>
+
+    <!-- 市场版图 -->
+    <section id="market" class="section-padding">
+        <div class="container">
+            <h2 class="section-title">市场版图</h2>
+            <p class="section-subtitle">聚焦长三角，精耕上海滩</p>
+
+            <div class="market-container">
+                <div class="market-tabs">
+                    <div class="tab-btn active" onclick="switchTab(1)">
+                        <div>
+                            <h4>上海全域</h4>
+                            <p>16个行政区深度板块划分</p>
+                        </div>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                    <div class="tab-btn" onclick="switchTab(2)">
+                        <div>
+                            <h4>长三角核心圈</h4>
+                            <p>16个核心城市联动分析</p>
+                        </div>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
                 </div>
-                <div class="service">
-                    <i class="fa fa-project-diagram"></i>
-                    <h3>项目可行性研究</h3>
-                    <p>通过 AI 工具整合项目所在区域的人口结构、产业支撑、基础设施等数据，判断项目定位的合理性；搭建动态财务模型，模拟不同销售均价、去化周期下的项目利润、现金流；抓取竞品营销策略、客户画像、销售数据，为项目制定差异化竞争方案。</p>
-                </div>
-                <div class="service">
-                    <i class="fa fa-gavel"></i>
-                    <h3>政策解读服务</h3>
-                    <p>针对上海及长三角各地发布的房地产政策，用“政策核心+影响人群+投资建议”的结构输出解读；基于 AI 对历史政策与市场反应的数据分析，预判区域政策走向，为客户提供提前布局建议。</p>
+                <div class="market-visual" id="market-content">
+                    <div class="market-detail-box">
+                        <h3><i class="fa-solid fa-location-dot"></i> 上海市场深耕</h3>
+                        <ul class="zone-list">
+                            <li>
+                                <strong>核心城区 (静安/徐汇)：</strong>
+                                <span>分析规划利好、学区资源、资产保值属性。</span>
+                            </li>
+                            <li>
+                                <strong>近郊改善 (闵行/嘉定)：</strong>
+                                <span>关注产业外溢、地铁新线路落地带来的增值。</span>
+                            </li>
+                            <li>
+                                <strong>远郊潜力 (临港新片区)：</strong>
+                                <span>政策利好驱动、产业园区落地、洼地价值。</span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </section>
-        <!-- 核心价值 -->
-        <section id="value" class="section value">
-            <h2>客户核心价值</h2>
+        </div>
+    </section>
+
+    <!-- 核心服务 -->
+    <section id="services" class="section-padding bg-gray">
+        <div class="container">
+            <h2 class="section-title">核心服务模块</h2>
+            <p class="section-subtitle">全流程覆盖，定制化分析</p>
+
+            <!-- 服务 1 -->
+            <div class="service-row">
+                <div class="service-text">
+                    <h3>投资分析服务 (定制化)</h3>
+                    <p>针对高净值人群与企业客户，提供“预算-风险-收益”精准匹配方案。</p>
+                    <ul class="service-list">
+                        <li><strong>个人客户：</strong>上海浦东/徐汇等板块住宅及商办投资回报测算。</li>
+                        <li><strong>企业客户：</strong>长三角区域拿地可行性分析，竞品数据透视。</li>
+                    </ul>
+                </div>
+                <div class="service-img">
+                    <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="投资分析">
+                </div>
+            </div>
+
+            <!-- 服务 2 -->
+            <div class="service-row">
+                <div class="service-text">
+                    <h3>项目可行性研究 (深度落地)</h3>
+                    <p>通过AI工具整合人口、产业、基建数据，全方位评估项目生命力。</p>
+                    <ul class="service-list">
+                        <li><strong>前期调研：</strong>判断项目定位（刚需/改善/文旅）合理性。</li>
+                        <li><strong>财务测算：</strong>搭建动态财务模型，模拟现金流与利润。</li>
+                        <li><strong>竞品对标：</strong>制定差异化竞争方案，寻找市场突围点。</li>
+                    </ul>
+                </div>
+                <div class="service-img">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1415&q=80" alt="可行性研究">
+                </div>
+            </div>
+
+            <!-- 服务 3 -->
+            <div class="service-row">
+                <div class="service-text">
+                    <h3>政策解读服务 (预判+实操)</h3>
+                    <p>不仅仅是政策搬运，更是对投资逻辑的深度拆解与预判。</p>
+                    <ul class="service-list">
+                        <li><strong>政策拆解：</strong>核心内容 + 影响人群 + 投资实操建议。</li>
+                        <li><strong>AI预判：</strong>基于历史数据预判区域政策走向（限跌令/利率调整），提前布局。</li>
+                    </ul>
+                </div>
+                <div class="service-img">
+                    <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="政策解读">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 客户价值 -->
+    <section class="section-padding value-section">
+        <div class="container">
+            <h2 class="section-title" style="color: #fff;">客户核心价值</h2>
+            <p style="opacity: 0.8;">我们用结果说话</p>
+
             <div class="value-grid">
                 <div class="value-item">
-                    <i class="fa fa-money-bill-wave"></i>
-                    <h3>降本</h3>
-                    <p>通过 AI 工具简化分析流程，让客户无需花费大量时间筛选信息，1-3 天即可获得传统模式下 1 月才能完成的投资报告。</p>
+                    <h2>降本</h2>
+                    <h4>Speed</h4>
+                    <p>无需人工海量筛选，AI 将报告周期从1个月缩短至 <strong>1-3 天</strong>。</p>
                 </div>
                 <div class="value-item">
-                    <i class="fa fa-tachometer-alt"></i>
-                    <h3>增效</h3>
-                    <p>为客户精准匹配高潜力项目，避免盲目投资，过往服务客户的投资标的平均年化收益率高于区域市场均值 15%-20%。</p>
+                    <h2>增效</h2>
+                    <h4>Profit</h4>
+                    <p>精准匹配高潜力项目，平均年化收益率高于区域均值 <strong>15%-20%</strong>。</p>
                 </div>
                 <div class="value-item">
-                    <i class="fa fa-shield-alt"></i>
-                    <h3>避险</h3>
-                    <p>实时预警政策、市场风险，帮助客户规避“高位接盘”“政策限制无法交易”等问题，过往服务中成功规避 10 多起潜在投资风险事件。</p>
+                    <h2>避险</h2>
+                    <h4>Safety</h4>
+                    <p>实时预警，成功协助客户规避 <strong>10+ 起</strong> 潜在高风险投资事件。</p>
                 </div>
             </div>
-        </section>
-    </main>
-    <!-- 页脚 -->
-    <footer class="footer">
-        <div class="footer-content">
-            <p>© 2025 Real AI 版权所有. 深耕上海及长三角房地产投资市场.</p>
-            <p>联系我们：info@realai.com | 电话：+86&nbsp;21&nbsp;1234&nbsp;5678</p>
+        </div>
+    </section>
+
+    <!-- 底部 -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="logo" style="color: #fff; margin-bottom: 20px;">REAL <span>AI</span></div>
+                    <p>融合25年地产积淀与前沿AI技术，为您提供理性、透明、高效的不动产投资决策支持。</p>
+                </div>
+                <div class="footer-col">
+                    <h4>快速入口</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">董豪专栏</a></li>
+                        <li><a href="#">AI 市场周报</a></li>
+                        <li><a href="#">成功案例</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>联系我们</h4>
+                    <ul class="footer-links">
+                        <li><i class="fa-solid fa-location-dot"></i> 上海市核心商务区</li>
+                        <li><i class="fa-solid fa-envelope"></i> contact@real-ai.com</li>
+                        <li><i class="fa-solid fa-phone"></i> 400-REAL-AI-888</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>关注我们</h4>
+                    <p>扫描二维码获取最新AI房产报告</p>
+                    <div style="width: 100px; height: 100px; background: #fff; color: #333; display: flex; align-items: center; justify-content: center; font-size: 12px;">
+                        [二维码占位]
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 REAL AI Property Investment. All Rights Reserved.
+            </div>
         </div>
     </footer>
-    <!-- 脚本文件 -->
-    <script src="script.js"></script>
+
+    <script>
+        // 简单的市场版图切换逻辑
+        function switchTab(id) {
+            const content = document.getElementById('market-content');
+            const tabs = document.querySelectorAll('.tab-btn');
+            
+            // 移除所有 active 状态
+            tabs.forEach(t => t.classList.remove('active'));
+            
+            // 简单的内容替换 (实际开发中可用隐藏/显示DIV)
+            if(id === 1) {
+                tabs[0].classList.add('active');
+                content.innerHTML = `
+                    <div class="market-detail-box fade-in">
+                        <h3><i class="fa-solid fa-location-dot"></i> 上海市场深耕</h3>
+                        <ul class="zone-list">
+                            <li><strong>核心城区 (静安/徐汇)：</strong><span>分析规划利好、学区资源、资产保值属性。</span></li>
+                            <li><strong>近郊改善 (闵行/嘉定)：</strong><span>关注产业外溢、地铁新线路落地带来的增值。</span></li>
+                            <li><strong>远郊潜力 (临港新片区)：</strong><span>政策利好驱动、产业园区落地、洼地价值。</span></li>
+                        </ul>
+                    </div>
+                `;
+            } else {
+                tabs[1].classList.add('active');
+                content.innerHTML = `
+                    <div class="market-detail-box fade-in">
+                        <h3><i class="fa-solid fa-city"></i> 长三角核心圈</h3>
+                        <ul class="zone-list">
+                            <li><strong>上海都市圈卫星城 (昆山/太仓)：</strong><span>交通通勤1小时圈、同城效应分析。</span></li>
+                            <li><strong>区域中心城市 (杭州/南京)：</strong><span>产业联动性、城市独立行情分析。</span></li>
+                            <li><strong>新兴潜力城市 (湖州/嘉兴)：</strong><span>成本洼地、新兴产业规划影响。</span></li>
+                        </ul>
+                    </div>
+                `;
+            }
+        }
+    </script>
 </body>
 </html>
