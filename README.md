@@ -31,25 +31,4 @@ Real AI 的创立者是一位拥有 **25+ 年房地产投资经验** 的资深�
 - **长三角核心城市**：杭州、南京、苏州、宁波、嘉兴、湖州等  
 - **一小时经济圈**：昆山、太仓、南通、绍兴等重点卫星城市
 
----
-
-## ⚙️ 技术栈
-
-- **前端技术**：HTML5 / CSS3 / JavaScript (Vanilla)
-- **UI风格**：深色科技感 + 蓝色霓虹视觉
-- **图像素材**：AI生成高科技场景图标（DALL·E）
-- **部署方式**：GitHub Pages / Netlify / Vercel 均可一键部署
-
----
-
-## 🖥️ 本地运行
-
-```bash
-# 克隆仓库
-git clone https://github.com/<your-username>/real-ai-site.git
-
-# 打开项目目录
-cd real-ai-site
-
-# 本地预览
-open index.html
+ 
